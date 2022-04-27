@@ -1,4 +1,4 @@
-module github.com/miaogu-go/tools/v2
+module github.com/miaogu-go/tools
 
 go 1.16
 
