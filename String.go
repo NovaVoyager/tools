@@ -2,6 +2,7 @@ package tools
 
 import (
 	"math/rand"
+	"strings"
 	"time"
 )
 
@@ -28,4 +29,12 @@ func Krand(size int, kind RandKind) string {
 		result[i] = uint8(base + rand.Intn(scope))
 	}
 	return string(result)
+}
+
+// FirstUpper 字符串首字母大写
+func FirstUpper(s string) string {
+	if s == "" {
+		return ""
+	}
+	return strings.ToUpper(s[:1]) + strings.ToLower(s[1:])
 }
