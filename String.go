@@ -16,16 +16,16 @@ const (
 	KcRandKindAll   RandKind = 3 // 数字、大小写字母
 )
 
-//Krand 随机字符串
-func Krand(size int, kind RandKind) string {
-	ikind, kinds, result := kind, [][]int{[]int{10, 48}, []int{26, 97}, []int{26, 65}}, make([]byte, size)
-	is_all := kind > 2 || kind < 0
+//KRand 随机字符串
+func KRand(size int, kind RandKind) string {
+	iKind, kinds, result := kind, [][]int{{10, 48}, {26, 97}, {26, 65}}, make([]byte, size)
+	isAll := kind > 2 || kind < 0
 	rand.Seed(time.Now().UnixNano())
 	for i := 0; i < size; i++ {
-		if is_all { // random ikind
-			ikind = RandKind(rand.Intn(3))
+		if isAll { // random ikind
+			iKind = RandKind(rand.Intn(3))
 		}
-		scope, base := kinds[ikind][0], kinds[ikind][1]
+		scope, base := kinds[iKind][0], kinds[iKind][1]
 		result[i] = uint8(base + rand.Intn(scope))
 	}
 	return string(result)
@@ -37,4 +37,17 @@ func FirstUpper(s string) string {
 		return ""
 	}
 	return strings.ToUpper(s[:1]) + strings.ToLower(s[1:])
+}
+
+// StrEscape 字符串转义
+// 转义字符串里的 单引号 和 双引号
+func StrEscape(str string) string {
+	if str == "" {
+		return ""
+	}
+
+	s := strings.ReplaceAll(str, "'", `\'`)
+	s = strings.ReplaceAll(s, `"`, `\"`)
+
+	return s
 }
