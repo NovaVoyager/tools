@@ -60,7 +60,7 @@ func IntToStr[T uint64 | int64 | int](arr []T) []string {
 }
 
 // IsExistArr 判断一个值是否在数组中存在
-//存在返回 true 和 索引下标,不存在返回 false 和 -1 索引
+// 存在返回 true 和 索引下标,不存在返回 false 和 -1 索引
 func IsExistArr[T int | int64 | uint64](val T, arr []T) (bool, int) {
 	tmpM := make(map[T]int, len(arr))
 
@@ -83,4 +83,44 @@ func InsElemInSliceHead[T int | int64 | uint64](dst, src []T) []T {
 	copy(newArr[len(src):], dst)
 
 	return newArr
+}
+
+// Intersection 返回两个切片的交集
+func Intersection[T int | int64 | uint64](a, b []T) []T {
+	result := make([]T, 0)
+	m := make(map[T]bool)
+
+	// 将切片 a 中的元素存入 map
+	for _, value := range a {
+		m[value] = true
+	}
+
+	// 遍历切片 b，如果元素在 map 中存在，则加入交集结果
+	for _, value := range b {
+		if m[value] {
+			result = append(result, value)
+		}
+	}
+
+	return result
+}
+
+// Difference 返回两个切片的差集（a 中有而 b 中没有的元素）
+func Difference[T int | uint64 | int64 | string](a, b []T) []T {
+	result := make([]T, 0)
+	m := make(map[T]bool)
+
+	// 将切片 b 中的元素存入 map
+	for _, value := range b {
+		m[value] = true
+	}
+
+	// 遍历切片 a，如果元素在 map 中不存在，则加入差集结果
+	for _, value := range a {
+		if !m[value] {
+			result = append(result, value)
+		}
+	}
+
+	return result
 }
